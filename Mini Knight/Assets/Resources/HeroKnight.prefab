@@ -57,7 +57,7 @@ MonoBehaviour:
   normalSpeed: 0
   jumpForce: 6
   extraJumps: 2
-  photonView: {fileID: 8631214111869746795}
+  yVelocity: 0
   sp: {fileID: 6289264848181488343}
 --- !u!95 &6584991084900414927
 Animator:
@@ -69,7 +69,7 @@ Animator:
   m_GameObject: {fileID: 2916912555373891944}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3c2a5b7097b0fe44394328c0bdb9252e, type: 2}
+  m_Controller: {fileID: 9100000, guid: c21365dadb6303b438c5752413882cf0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
