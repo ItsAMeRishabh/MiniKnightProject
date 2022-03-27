@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 public class CharacterContorller : MonoBehaviour
 {
     public float walkSpeed = 2f;
@@ -14,6 +14,7 @@ public class CharacterContorller : MonoBehaviour
     public SpriteRenderer sp;
     private Animator anim;
     private Rigidbody2D rb;
+    private PhotonView pView;
 
     public static CharacterContorller instanceController;
 
@@ -23,10 +24,19 @@ public class CharacterContorller : MonoBehaviour
         normalSpeed = walkSpeed;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        pView = GetComponent<PhotonView>();
         
     }
 
     void Update()
+    {
+        if(pView.IsMine)
+        {
+            Movement();
+        }
+    }
+
+    public void Movement()
     {
         yVelocity  = rb.velocity.y;
 
@@ -104,9 +114,9 @@ public class CharacterContorller : MonoBehaviour
     }
 
     public void Jump()
-     {
+    {
         GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpForce;
         GroundCheck.instanceGroundCheck.isGrounded = false;
         anim.SetBool("canJump", true);
-     }
+    }
 }
