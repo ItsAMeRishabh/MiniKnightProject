@@ -57,7 +57,7 @@ MonoBehaviour:
   normalSpeed: 0
   jumpForce: 6
   extraJumps: 2
-  photonView: {fileID: 8631214111869746795}
+  yVelocity: 0
   sp: {fileID: 6289264848181488343}
 --- !u!95 &6584991084900414927
 Animator:
