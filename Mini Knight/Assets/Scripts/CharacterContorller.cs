@@ -38,79 +38,81 @@ public class CharacterContorller : MonoBehaviour
 
     public void Movement()
     {
-        yVelocity  = rb.velocity.y;
-
-        if (Input.GetKey(KeyCode.A))
+        if (pView.IsMine)
         {
-            transform.Translate(Vector3.left * normalSpeed * Time.deltaTime);
-            sp.flipX = true;
-            anim.SetBool("isRunning", true);
-        }
+            yVelocity = rb.velocity.y;
 
-        if(Input.GetKeyUp(KeyCode.A))
-        {
-            anim.SetBool("isRunning", false);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector3.right * normalSpeed * Time.deltaTime);
-            sp.flipX = false;
-            anim.SetBool("isRunning", true);
-        }
-
-        if(Input.GetKeyUp(KeyCode.D))
-        {
-            anim.SetBool("isRunning", false);
-        }
-
-        //JUMP
-        if (Input.GetKeyDown(KeyCode.Space) && GroundCheck.instanceGroundCheck.isGrounded == true)
-        {
-            Jump();
-        }
-
-        //DOUBLE JUMP
-        if (Input.GetKeyDown(KeyCode.Space) && GroundCheck.instanceGroundCheck.isGrounded == false)
-        {
-            if (extraJumps > 0)
+            if (Input.GetKey(KeyCode.A))
             {
-                GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpForce;
-                extraJumps--;
+                transform.Translate(Vector3.left * normalSpeed * Time.deltaTime);
+                sp.flipX = true;
+                anim.SetBool("isRunning", true);
+            }
+
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                anim.SetBool("isRunning", false);
+            }
+
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.Translate(Vector3.right * normalSpeed * Time.deltaTime);
+                sp.flipX = false;
+                anim.SetBool("isRunning", true);
+            }
+
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                anim.SetBool("isRunning", false);
+            }
+
+            //JUMP
+            if (Input.GetKeyDown(KeyCode.Space) && GroundCheck.instanceGroundCheck.isGrounded == true)
+            {
+                Jump();
+            }
+
+            //DOUBLE JUMP
+            if (Input.GetKeyDown(KeyCode.Space) && GroundCheck.instanceGroundCheck.isGrounded == false)
+            {
+                if (extraJumps > 0)
+                {
+                    GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpForce;
+                    extraJumps--;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && GroundCheck.instanceGroundCheck.isGrounded == true)
+            {
+                normalSpeed = sprintSpeed;
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                normalSpeed = walkSpeed;
+            }
+
+            if (Input.GetMouseButton(1))
+            {
+                AudioManager.instance.PlayAudio("SwordSwing");
+                anim.SetBool("isBlocking", true);
+            }
+
+            if (Input.GetMouseButtonUp(1))
+            {
+                anim.SetBool("isBlocking", false);
+            }
+
+            if (yVelocity < 0)
+            {
+                anim.SetBool("canJump", false);
+                anim.SetBool("isFalling", true);
+            }
+            else if (yVelocity == 0)
+            {
+                anim.SetBool("isFalling", false);
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && GroundCheck.instanceGroundCheck.isGrounded == true)
-        {
-            normalSpeed = sprintSpeed;
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            normalSpeed = walkSpeed;
-        }
-
-        if(Input.GetMouseButton(1))
-        {
-            AudioManager.instance.PlayAudio("SwordSwing");
-            anim.SetBool("isBlocking",true);
-        }
-
-        if(Input.GetMouseButtonUp(1))
-        {
-            anim.SetBool("isBlocking",false);
-        }
-        
-        if(yVelocity < 0)
-        {
-            anim.SetBool("canJump",false);
-            anim.SetBool("isFalling",true);
-        }
-        else if (yVelocity == 0)
-        {
-            anim.SetBool("isFalling",false);
-        }
-
     }
 
     public void Jump()
