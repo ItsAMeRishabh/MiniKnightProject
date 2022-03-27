@@ -21,6 +21,7 @@ public class CharacterContorller : MonoBehaviour
     {
         instanceController = this;
         normalSpeed = walkSpeed;
+        
     }
 
     void Update()
