@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject playerPrefab;
 
     public GameObject lobbyUI;
+    public GameObject GameUI;
 
     public Transform[] spawnPoints;
 
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     void RPCStartGame(Vector3 spawnPos)
     {
         lobbyUI.SetActive(false);
+        GameUI.SetActive(true);
         PhotonNetwork.Instantiate(playerPrefab.name, spawnPos, Quaternion.identity);
     }
 
