@@ -25935,6 +25935,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebfb6359c13b46145946506d1441d6d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1456319052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456319049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf3c0221df431b54eaef9932bc8ed71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrel: {fileID: 0}
+  bullet: {fileID: 0}
+  bulletSpeed: 50
+  Bullets: 
+  GunDurability: 3
+  Aimm: {fileID: 0}
 --- !u!1 &1474392822
 GameObject:
   m_ObjectHideFlags: 0
@@ -27472,6 +27490,7 @@ GameObject:
   - component: {fileID: 1871304857}
   - component: {fileID: 1871304859}
   - component: {fileID: 1871304860}
+  - component: {fileID: 1871304861}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -27553,6 +27572,22 @@ MonoBehaviour:
   - name: SwordSwing
     audiosource: {fileID: 1456319050}
     clip: {fileID: 8300000, guid: ef2078b5204000e44aa2ce6c9c499ba0, type: 3}
+--- !u!114 &1871304861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871304856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27156ae088253694c91476a9b7b38200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolObjects:
+  - poolName: Bullets
+    poolSize: 3
+    poolPrefab: {fileID: 7309969210489032049, guid: 5efef356dc149a4468a461cc3427ed43, type: 3}
 --- !u!1 &2013600622
 GameObject:
   m_ObjectHideFlags: 0
