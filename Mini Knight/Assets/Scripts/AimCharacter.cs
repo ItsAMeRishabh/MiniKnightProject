@@ -42,7 +42,7 @@ public class AimCharacter : MonoBehaviour
             if(Input.GetMouseButtonDown(0))
             {
                 GameObject bulletc = objectpool.SpawnFromPool(Bullets , barrel.position , Quaternion.Euler(0, 0, 1));
-                bulletc.GetComponent<Rigidbody>().velocity = barrel.right * bulletSpeed;
+                bulletc.GetComponent<Rigidbody2D>().velocity = barrel.right * bulletSpeed;
                 GunDurability--;
             }
         }
