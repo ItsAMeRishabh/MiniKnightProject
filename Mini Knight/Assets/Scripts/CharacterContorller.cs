@@ -30,7 +30,6 @@ public class CharacterContorller : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         pView = GetComponent<PhotonView>();
-        //HealthBarScript.instance_health.MaxHealth(100);
         
         if(!pView.IsMine)
         {
