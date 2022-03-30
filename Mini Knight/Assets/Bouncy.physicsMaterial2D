@@ -7,5 +7,10 @@ PhysicsMaterial2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Bouncy
+<<<<<<< Updated upstream:Mini Knight/Assets/Bouncy.physicsMaterial2D
   friction: 0.2
   bounciness: 0.6
+=======
+  friction: 0.4
+  bounciness: 1
+>>>>>>> Stashed changes:Mini Knight/Assets/Bouncy.physicMaterial
