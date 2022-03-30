@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Respawn : MonoBehaviour
@@ -22,7 +20,7 @@ public class Player_Respawn : MonoBehaviour
                 HealthBarScript.instance_health.currentHealth -= 75;
                 HealthBarScript.instance_health.SetHealth();
             }
-            else
+            else if (HealthBarScript.instance_health.currentHealth <= 75)
             {
                 HealthBarScript.instance_health.currentHealth = 100;
                 HealthBarScript.instance_health.SetHealth();
@@ -36,7 +34,21 @@ public class Player_Respawn : MonoBehaviour
             respawnPoint = other.transform.position;
         }
 
-        
+        if (other.gameObject.tag == "Spikes")
+        {
+            if (HealthBarScript.instance_health.currentHealth > 10)
+            {
+                HealthBarScript.instance_health.currentHealth -= 10;
+                HealthBarScript.instance_health.SetHealth();
+            }
+            else if (HealthBarScript.instance_health.currentHealth <= 10)
+            {
+                HealthBarScript.instance_health.currentHealth = 100;
+                HealthBarScript.instance_health.SetHealth();
+                HealthBarScript.instance_health.currentHearts -= 1;
+                HealthBarScript.instance_health.UpdateHearts();
+            }
+        }
     }
 
 }

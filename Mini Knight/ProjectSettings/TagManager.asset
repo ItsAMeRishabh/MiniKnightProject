@@ -8,6 +8,7 @@ TagManager:
   - FallDetector
   - Checkpoint
   - WeaponPickup
+  - Spikes
   layers:
   - Default
   - TransparentFX
