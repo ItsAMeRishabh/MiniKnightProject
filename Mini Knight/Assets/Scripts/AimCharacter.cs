@@ -15,10 +15,12 @@ public class AimCharacter : MonoBehaviour
     public GameObject Aimm;
 
     private ObjectPooler objectpool;
+    public static AimCharacter aim_instance;
 
     private void Start()
     {
         objectpool = FindObjectOfType<ObjectPooler>();
+        aim_instance = this;
     }
 
     private void Awake()

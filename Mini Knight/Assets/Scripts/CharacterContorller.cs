@@ -134,4 +134,13 @@ public class CharacterContorller : MonoBehaviour
         GroundCheck.instanceGroundCheck.isGrounded = false;
         anim.SetBool("canJump", true);
     }
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.gameObject.tag == "WeaponPickup")
+        {
+            AimCharacter.aim_instance.GunDurability = 3;
+            Destroy(other.gameObject);
+        }
+    }
 }
