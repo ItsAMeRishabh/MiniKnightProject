@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,14 @@ public class CharacterContorller : MonoBehaviour
 
     public static CharacterContorller instanceController;
 
+<<<<<<< Updated upstream
+=======
+    public GameObject InGameUI;
+    public GameObject OverheadText;
+    public GameObject groundSensor;
+    public GameObject Aim;
+
+>>>>>>> Stashed changes
     void Start()
     {
         instanceController = this;
@@ -119,4 +128,17 @@ public class CharacterContorller : MonoBehaviour
         GroundCheck.instanceGroundCheck.isGrounded = false;
         anim.SetBool("canJump", true);
     }
+<<<<<<< Updated upstream
+=======
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.gameObject.tag == "WeaponPickup")
+        {
+            AimCharacter.aim_instance.GunDurability = 3;
+            Destroy(other.gameObject);
+            Aim.SetActive(true);
+        }
+    }
+>>>>>>> Stashed changes
 }
