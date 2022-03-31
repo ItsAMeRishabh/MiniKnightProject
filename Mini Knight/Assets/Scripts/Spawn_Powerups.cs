@@ -5,23 +5,31 @@ using Photon.Pun;
 
 public class Spawn_Powerups : MonoBehaviour
 {
+    public static Spawn_Powerups instance;
     [SerializeField]
-    private GameObject[] powerups;
+    private GameObject Swordpowerups;
     public List<Transform> spawnPoints;
+    public int SowrdCount;
 
     void Start()
     {
-        StartCoroutine(PowerupSpawnRoutine());
+        instance = this;
+         
+    }
+    private void Update() {
+         if (SowrdCount < 3)
+          {
+              StartCoroutine(PowerupSpawnRoutine());
+          }
     }
 
     IEnumerator PowerupSpawnRoutine()
     {
-        while(true)
-        {
-            int randomPowerup = Random.Range(0,powerups.Length);
-            float spawnPoint = Random.Range(0,spawnPoints.Count);
-            Instantiate(powerups[randomPowerup] , spawnPoints[(int)spawnPoint].position,Quaternion.identity);
-            yield return new WaitForSeconds(5.0f);
-        }
+ 
+                float spawnPoint = Random.Range(0, spawnPoints.Count);
+                Instantiate(Swordpowerups, spawnPoints[(int)spawnPoint].position, Quaternion.identity);
+                SowrdCount++;
+                yield return new WaitForSeconds(5.0f);
+
     }
 }

@@ -140,6 +140,7 @@ public class CharacterContorller : MonoBehaviour
         if(other.gameObject.tag == "WeaponPickup")
         {
             AimCharacter.aim_instance.GunDurability = 3;
+            Spawn_Powerups.instance.SowrdCount--;
             Destroy(other.gameObject);
         }
     }

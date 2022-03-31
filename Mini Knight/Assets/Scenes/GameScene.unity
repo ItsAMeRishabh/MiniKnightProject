@@ -27508,13 +27508,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab6f1632134968d47bd2065159710d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerups:
-  - {fileID: 3544726938140441041, guid: 1d501d77547834341842e0a8c9d91d07, type: 3}
+  Swordpowerups: {fileID: 3544726938140441041, guid: 1d501d77547834341842e0a8c9d91d07, type: 3}
   spawnPoints:
   - {fileID: 1631081452}
   - {fileID: 1481655932}
   - {fileID: 2058848765}
   - {fileID: 335826926}
+  SowrdCount: 0
 --- !u!1 &2013600622
 GameObject:
   m_ObjectHideFlags: 0
