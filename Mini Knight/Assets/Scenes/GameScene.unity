@@ -11511,7 +11511,7 @@ AreaEffector2D:
     m_Bits: 4294967295
   m_UseGlobalAngle: 0
   m_ForceAngle: 90
-  m_ForceMagnitude: 1500
+  m_ForceMagnitude: 1000
   m_ForceVariation: 0
   m_ForceTarget: 1
   m_Drag: 0
@@ -27508,16 +27508,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab6f1632134968d47bd2065159710d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerup_count: 0
-  powerups:
-  - {fileID: 3544726938140441041, guid: 1d501d77547834341842e0a8c9d91d07, type: 3}
-  - {fileID: 6111666807398382731}
-  sowrdSpawnPoints:
+  Swordpowerups: {fileID: 3544726938140441041, guid: 1d501d77547834341842e0a8c9d91d07, type: 3}
+  spawnPoints:
   - {fileID: 1631081452}
   - {fileID: 1481655932}
   - {fileID: 2058848765}
   - {fileID: 335826926}
-  healthSpawnPoints: []
+  SowrdCount: 0
 --- !u!1 &2013600622
 GameObject:
   m_ObjectHideFlags: 0
@@ -35321,65 +35318,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &6111666807398382730
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5958857049493333624, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-      propertyPath: m_Name
-      value: HealthPowerup
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852281510015416434, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-      propertyPath: m_RootOrder
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852281510015416434, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852281510015416434, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852281510015416434, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852281510015416434, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852281510015416434, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852281510015416434, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852281510015416434, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852281510015416434, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852281510015416434, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852281510015416434, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
---- !u!1 &6111666807398382731 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5958857049493333624, guid: e83bd8f868ec05b43a5aaeda65cc0b68, type: 3}
-  m_PrefabInstance: {fileID: 6111666807398382730}
-  m_PrefabAsset: {fileID: 0}
