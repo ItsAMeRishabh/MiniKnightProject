@@ -141,6 +141,7 @@ public class CharacterContorller : MonoBehaviour
         {
             AimCharacter.aim_instance.GunDurability = 3;
             Destroy(other.gameObject);
+            Spawn_Powerups.Powerup_instance.powerup_count--;
         }
     }
 }
