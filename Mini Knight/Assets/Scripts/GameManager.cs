@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         startGameButton.onClick.AddListener(StartGame);
         startGameButton.interactable = false;
+        GameUI.SetActive(false);
     }
 
     private void Update()

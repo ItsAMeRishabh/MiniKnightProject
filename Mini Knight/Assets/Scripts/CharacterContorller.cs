@@ -9,6 +9,7 @@ public class CharacterContorller : MonoBehaviour
     public float normalSpeed;
     public float jumpForce = 2f;
     public int extraJumps = 2;
+
     [SerializeField] private float yVelocity;
 
     public SpriteRenderer sp;
@@ -18,6 +19,10 @@ public class CharacterContorller : MonoBehaviour
 
     public static CharacterContorller instanceController;
 
+    public GameObject InGameUI;
+    public GameObject OverheadText;
+    public GameObject groundSensor;
+
     void Start()
     {
         instanceController = this;
@@ -25,8 +30,13 @@ public class CharacterContorller : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         pView = GetComponent<PhotonView>();
-        HealthBarScript.instance_health.MaxHealth(100);
         
+        if(!pView.IsMine)
+        {
+            InGameUI.SetActive(false);
+            OverheadText.SetActive(false);
+            groundSensor.SetActive(false);
+        }
     }
 
     void Update()
@@ -39,8 +49,6 @@ public class CharacterContorller : MonoBehaviour
 
     public void Movement()
     {
-        if (pView.IsMine)
-        {
             yVelocity = rb.velocity.y;
 
             if (Input.GetKey(KeyCode.A))
@@ -71,6 +79,11 @@ public class CharacterContorller : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && GroundCheck.instanceGroundCheck.isGrounded == true)
             {
                 Jump();
+            }
+
+            if(GroundCheck.instanceGroundCheck.isGrounded == true)
+            {
+                extraJumps = 2;
             }
 
             //DOUBLE JUMP
@@ -113,7 +126,6 @@ public class CharacterContorller : MonoBehaviour
             {
                 anim.SetBool("isFalling", false);
             }
-        }
     }
 
     public void Jump()
@@ -122,8 +134,6 @@ public class CharacterContorller : MonoBehaviour
         GroundCheck.instanceGroundCheck.isGrounded = false;
         anim.SetBool("canJump", true);
     }
-<<<<<<< Updated upstream
-=======
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -133,5 +143,4 @@ public class CharacterContorller : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
->>>>>>> Stashed changes
 }

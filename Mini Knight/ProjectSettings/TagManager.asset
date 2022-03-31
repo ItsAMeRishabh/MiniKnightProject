@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - FallDetector
   - Checkpoint
+  - WeaponPickup
+  - Spikes
   layers:
   - Default
   - TransparentFX
@@ -43,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Powerups
+    uniqueID: 4212552619
     locked: 0
