@@ -143,5 +143,13 @@ public class CharacterContorller : MonoBehaviour
             Spawn_Powerups.instance.SowrdCount--;
             Destroy(other.gameObject);
         }
+
+        if(other.gameObject.tag == "Heart")
+        {
+            HealthBarScript.instance_health.currentHearts++;
+            HealthBarScript.instance_health.SetHealth();
+            Spawn_Powerups.instance.HealthCount--;
+            Destroy(other.gameObject);
+        }
     }
 }

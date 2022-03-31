@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 8852281510015416434}
   - component: {fileID: 769333591375498712}
   - component: {fileID: 8618177846223496280}
+  - component: {fileID: 7582663680975100431}
   m_Layer: 0
   m_Name: HealthPowerup
-  m_TagString: Untagged
+  m_TagString: Heart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,3 +122,25 @@ PolygonCollider2D:
       - {x: 0.4669619, y: 0.2436914}
       - {x: 0.42448145, y: 0.3223502}
       - {x: 0.2847636, y: 0.40308172}
+--- !u!114 &7582663680975100431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5958857049493333624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

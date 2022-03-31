@@ -9,6 +9,7 @@ TagManager:
   - Checkpoint
   - WeaponPickup
   - Spikes
+  - Heart
   layers:
   - Default
   - TransparentFX
