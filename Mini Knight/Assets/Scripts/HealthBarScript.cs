@@ -30,6 +30,13 @@ public class HealthBarScript : MonoBehaviour
     {
         sliderHealth.value = currentHealth;
     }
+    private void Update()
+    {
+        if(currentHearts>3)
+        {
+            currentHearts--;
+        }
+    }
 
     public void UpdateHearts()
     {

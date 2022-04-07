@@ -147,7 +147,7 @@ public class CharacterContorller : MonoBehaviour
         if(other.gameObject.tag == "Heart")
         {
             HealthBarScript.instance_health.currentHearts++;
-            HealthBarScript.instance_health.SetHealth();
+            HealthBarScript.instance_health.UpdateHearts();
             Spawn_Powerups.instance.HealthCount--;
             Destroy(other.gameObject);
         }
