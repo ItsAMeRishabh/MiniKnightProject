@@ -10,6 +10,7 @@ TagManager:
   - WeaponPickup
   - Spikes
   - Heart
+  - EdgeWall
   layers:
   - Default
   - TransparentFX

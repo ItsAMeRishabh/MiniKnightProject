@@ -31,5 +31,13 @@ public class Projectile : MonoBehaviour
              rb.velocity = direction * Mathf.Max(speed, 0f);*/
             Destroy(gameObject);
         }
+        if (collision.transform.tag == "EdgeWall")
+        {
+            Destroy(gameObject);
+        }
+        if (collision.transform.tag == "FallDetector")
+        {
+            Destroy(gameObject);
+        }
     }
 }
