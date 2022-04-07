@@ -1195,6 +1195,8 @@ MonoBehaviour:
   bullet: {fileID: 2330477703937209407, guid: 8cc79742fb45c104e90065bcb2d4c001, type: 3}
   firePoint: {fileID: 2636500940277460034}
   startTimeBtwShots: 0.5
+  BulletCount: 3
+  Aimm: {fileID: 0}
 --- !u!1 &7964003760665850756
 GameObject:
   m_ObjectHideFlags: 0
