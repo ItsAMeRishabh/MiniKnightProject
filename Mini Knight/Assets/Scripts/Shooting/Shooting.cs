@@ -13,10 +13,6 @@ public class Shooting : MonoBehaviour
     private float timeBtwShots;
     public float startTimeBtwShots;
 
-  /*  private void Start()
-    {
-        timeBtwShots = 0;
-    }*/
 
     private void Update()
     {
@@ -24,20 +20,20 @@ public class Shooting : MonoBehaviour
         float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
 
-        /*if(timeBtwShots<=0)
-        {*/
+        if(timeBtwShots<=0)
+        {
 
             if (Input.GetMouseButtonDown(0))
             {
                 Instantiate(bullet, firePoint.position, firePoint.rotation);
-                //timeBtwShots = startTimeBtwShots;
+                timeBtwShots = startTimeBtwShots;
                 
             }
-            /*else
+        }
+            else
             {
-                timeBtwShots = Time.deltaTime;
+                timeBtwShots -= Time.deltaTime;
             }
-        }*/
         
     }
 }
