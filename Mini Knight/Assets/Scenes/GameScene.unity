@@ -11781,7 +11781,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.1760073, y: 1.0893545}
+  m_Offset: {x: -1.0321655, y: 1.0893545}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -11792,7 +11792,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.5500813, y: 0.8019352}
+  m_Size: {x: 3.2623978, y: 0.8019352}
   m_EdgeRadius: 0
 --- !u!4 &700794321
 Transform:
@@ -25834,7 +25834,7 @@ GameObject:
   - component: {fileID: 1474392832}
   - component: {fileID: 1474392848}
   - component: {fileID: 1474392849}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlatformColliders
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -27571,7 +27571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Swordpowerups: {fileID: 3544726938140441041, guid: 1d501d77547834341842e0a8c9d91d07, type: 3}
-  Health: {fileID: 0}
+  Health: {fileID: 1785349043074353608, guid: ef495bfd17c023444bdfbf7a2fbfa261, type: 3}
   HealthSpawnPoint:
   - {fileID: 1167317000}
   - {fileID: 125710918}

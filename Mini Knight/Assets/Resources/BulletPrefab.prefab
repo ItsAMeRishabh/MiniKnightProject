@@ -100,6 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!58 &2925755876650791337
 CircleCollider2D:
   m_ObjectHideFlags: 0

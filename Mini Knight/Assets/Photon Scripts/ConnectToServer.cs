@@ -21,12 +21,12 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
-        //SceneManager.LoadScene("LobbyScene");
-        StartCoroutine(LoadAsynchronously());
+        SceneManager.LoadScene("LobbyScene");
+       // StartCoroutine(LoadAsynchronously());
         
     }
 
-    IEnumerator LoadAsynchronously ()
+    /*IEnumerator LoadAsynchronously ()
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync("LobbyScene");
 
@@ -37,6 +37,6 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
             yield return null;
         }
-    }
+    }*/
 
 }
