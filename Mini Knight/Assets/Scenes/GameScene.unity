@@ -25618,6 +25618,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 55095405256033075, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 301908628028492955, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
       propertyPath: m_Name
       value: HeroKnight

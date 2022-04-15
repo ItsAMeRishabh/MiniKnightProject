@@ -6,16 +6,16 @@ using UnityEngine.UI;
 public class HealthBarScript : MonoBehaviour
 {
     public static HealthBarScript instance_health;
-    public Slider sliderHealth;
-    public int currentHealth;
 
+    public int currentHealth;
+    public int currentHearts;
+
+    public Slider sliderHealth;
 
     public GameObject Heart1;
     public GameObject Heart2;
     public GameObject Heart3;
 
-
-    public int currentHearts;
 
     private void Start() 
     {
@@ -60,5 +60,8 @@ public class HealthBarScript : MonoBehaviour
         }
     }
 
-    
+    public void GiveDamage()
+    {
+        
+    }
 }

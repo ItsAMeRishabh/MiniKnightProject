@@ -13,15 +13,18 @@ public class CharacterContorller : MonoBehaviour
     [SerializeField] private float yVelocity;
 
     public SpriteRenderer sp;
-    private Animator anim;
+    public Animator anim;
     private Rigidbody2D rb;
-    private PhotonView pView;
+    public PhotonView pView;
 
     public static CharacterContorller instanceController;
 
     public GameObject InGameUI;
     public GameObject OverheadText;
+    public GameObject TextPlayer;
     public GameObject groundSensor;
+    public GameObject aimStick;
+    public GameObject playerPrefab;
 
     void Start()
     {
@@ -36,7 +39,10 @@ public class CharacterContorller : MonoBehaviour
             InGameUI.SetActive(false);
             OverheadText.SetActive(false);
             groundSensor.SetActive(false);
+
+            playerPrefab.layer = LayerMask.NameToLayer("Enemy");
         }
+            aimStick.SetActive(false);
     }
 
     void Update()
@@ -44,7 +50,19 @@ public class CharacterContorller : MonoBehaviour
         if(pView.IsMine)
         {
             Movement();
+
+            RangedShoot();
+            
+            if (Input.GetMouseButtonDown(0))
+            {       
+                anim.SetBool("isAttacking1", true);
+            }
+            else
+            {
+                anim.SetBool("isAttacking1", false);
+            }
         }
+
     }
 
     public void Movement()
@@ -53,21 +71,26 @@ public class CharacterContorller : MonoBehaviour
 
             if (Input.GetKey(KeyCode.A))
             {
-                transform.Translate(Vector3.left * normalSpeed * Time.deltaTime);
-                sp.flipX = true;
+                transform.Translate(Vector3.right * normalSpeed * Time.deltaTime);
+                //sp.flipX = true;
                 anim.SetBool("isRunning", true);
-            }
-
+                transform.eulerAngles = new Vector3(0, 180, 0);
+                TextPlayer.transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+            
             if (Input.GetKeyUp(KeyCode.A))
             {
+            
                 anim.SetBool("isRunning", false);
             }
-
+            
             if (Input.GetKey(KeyCode.D))
             {
                 transform.Translate(Vector3.right * normalSpeed * Time.deltaTime);
-                sp.flipX = false;
+                //sp.flipX = false;
                 anim.SetBool("isRunning", true);
+                transform.eulerAngles = new Vector3(0,0, 0);
+                TextPlayer.transform.eulerAngles = new Vector3(0, 0, 0);
             }
 
             if (Input.GetKeyUp(KeyCode.D))
@@ -106,7 +129,7 @@ public class CharacterContorller : MonoBehaviour
                 normalSpeed = walkSpeed;
             }
 
-            if (Input.GetMouseButton(1))
+           /* if (Input.GetMouseButton(1))
             {
                 AudioManager.instance.PlayAudio("SwordSwing");
                 anim.SetBool("isBlocking", true);
@@ -115,7 +138,7 @@ public class CharacterContorller : MonoBehaviour
             if (Input.GetMouseButtonUp(1))
             {
                 anim.SetBool("isBlocking", false);
-            }
+            }*/
 
             if (yVelocity < 0)
             {
@@ -127,6 +150,21 @@ public class CharacterContorller : MonoBehaviour
                 anim.SetBool("isFalling", false);
             }
     }
+    
+    public void RangedShoot()
+    {
+        //Aim Stick enabling on Right Mouse Click.
+        if (Input.GetMouseButton(1))
+        {
+            aimStick.SetActive(true);
+        }
+        else
+        {
+            aimStick.SetActive(false);
+        }
+    }
+    
+   
 
     public void Jump()
     {
@@ -139,7 +177,7 @@ public class CharacterContorller : MonoBehaviour
     {
         if(other.gameObject.tag == "WeaponPickup")
         {
-            Shooting.instanceShooting.BulletCount = 3;
+            Shooting.instanceShooting.BulletCount += 3;
             Spawn_Powerups.instance.SowrdCount--;
             Destroy(other.gameObject);
         }

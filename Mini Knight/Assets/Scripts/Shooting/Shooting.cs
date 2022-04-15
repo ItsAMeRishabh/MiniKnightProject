@@ -5,16 +5,15 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     public float offset;
-
-    public GameObject bullet;
-
-    public Transform firePoint;
-
     private float timeBtwShots;
     public float startTimeBtwShots;
-
     public int BulletCount;
-    public GameObject Aimm;
+
+    public GameObject bullet;
+    //public GameObject Aimm;
+
+    public Transform firePoint;
+    public Animator anim;
 
     public static Shooting instanceShooting;
 
@@ -34,7 +33,7 @@ public class Shooting : MonoBehaviour
             if (timeBtwShots <= 0)
             {
                 if (Input.GetMouseButtonDown(0))
-                {
+                {            
                     Instantiate(bullet, firePoint.position, firePoint.rotation);
                     timeBtwShots = startTimeBtwShots;
                     BulletCount--;
