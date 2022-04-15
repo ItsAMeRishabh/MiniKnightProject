@@ -16,7 +16,7 @@ public class BulletCollision : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             HealthBarScript.instance_health.currentHealth -= 10;
-            HealthBarScript.instance_health.SetHealth();
+            //HealthBarScript.instance_health.SetHealth();
             Destroy(this.gameObject);
         }
     }

@@ -18,12 +18,12 @@ public class Player_Respawn : MonoBehaviour
             if (HealthBarScript.instance_health.currentHealth > 75)
             {
                 HealthBarScript.instance_health.currentHealth -= 75;
-                HealthBarScript.instance_health.SetHealth();
+                //HealthBarScript.instance_health.SetHealth();
             }
             else if (HealthBarScript.instance_health.currentHealth <= 75)
             {
                 HealthBarScript.instance_health.currentHealth = 100;
-                HealthBarScript.instance_health.SetHealth();
+                //HealthBarScript.instance_health.SetHealth();
                 HealthBarScript.instance_health.currentHearts -= 1;
                 HealthBarScript.instance_health.UpdateHearts();
             }
@@ -39,12 +39,12 @@ public class Player_Respawn : MonoBehaviour
             if (HealthBarScript.instance_health.currentHealth > 10)
             {
                 HealthBarScript.instance_health.currentHealth -= 10;
-                HealthBarScript.instance_health.SetHealth();
+                //HealthBarScript.instance_health.SetHealth();
             }
             else if (HealthBarScript.instance_health.currentHealth <= 10)
             {
                 HealthBarScript.instance_health.currentHealth = 100;
-                HealthBarScript.instance_health.SetHealth();
+                //HealthBarScript.instance_health.SetHealth();
                 HealthBarScript.instance_health.currentHearts -= 1;
                 HealthBarScript.instance_health.UpdateHearts();
             }

@@ -9,13 +9,13 @@ public class HealthBarScript : MonoBehaviour
 
     public int currentHealth;
     public int currentHearts;
+    public float smoothing = 5f;
 
     public Slider sliderHealth;
 
     public GameObject Heart1;
     public GameObject Heart2;
     public GameObject Heart3;
-
 
     private void Start() 
     {
@@ -26,15 +26,20 @@ public class HealthBarScript : MonoBehaviour
         currentHearts = 3;
     }
 
-    public void SetHealth()
+    /*public void SetHealth()
     {
         sliderHealth.value = currentHealth;
-    }
+    }*/
     private void Update()
     {
         if(currentHearts>3)
         {
             currentHearts--;
+        }
+
+        if (sliderHealth.value != currentHealth)
+        {
+            sliderHealth.value = Mathf.Lerp(sliderHealth.value, currentHealth, smoothing * Time.deltaTime);
         }
     }
 

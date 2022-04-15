@@ -32,12 +32,12 @@ public class MeleeDamage : MonoBehaviour
         if(HealthBarScript.instance_health.currentHealth>40)
         {
             HealthBarScript.instance_health.currentHealth -= 40;
-            HealthBarScript.instance_health.SetHealth();
+            //HealthBarScript.instance_health.SetHealth();
         }
         else
         {
             HealthBarScript.instance_health.currentHealth = 100;
-            HealthBarScript.instance_health.SetHealth();
+            //HealthBarScript.instance_health.SetHealth();
             HealthBarScript.instance_health.currentHearts -= 1;
             HealthBarScript.instance_health.UpdateHearts();
         }
