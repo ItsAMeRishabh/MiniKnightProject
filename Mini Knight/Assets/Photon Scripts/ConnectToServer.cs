@@ -22,21 +22,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         SceneManager.LoadScene("LobbyScene");
-       // StartCoroutine(LoadAsynchronously());
         
     }
-
-    /*IEnumerator LoadAsynchronously ()
-    {
-        AsyncOperation operation = SceneManager.LoadSceneAsync("LobbyScene");
-
-        while(!operation.isDone)
-        {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-            mySlider.value = progress;
-
-            yield return null;
-        }
-    }*/
 
 }

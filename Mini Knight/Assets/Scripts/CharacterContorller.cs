@@ -15,14 +15,15 @@ public class CharacterContorller : MonoBehaviour
     public float dashCooldown = 1f;
     private float dashCounter;
     public float dashCoolCounter;
+
+    //For Force Based Movement
     public float moveInput;
-    [SerializeField] private float accel = 1;
-    [SerializeField] private float deccel = -1;
+    [SerializeField] private float accel;
+    [SerializeField] private float deccel;
     [SerializeField] private float velPow;
     [SerializeField] private float frictionAmount;
     [SerializeField] private float gravityScale;
     [SerializeField] private float fallGravityMultiplier;
-
     [SerializeField] private float yVelocity;
 
     public SpriteRenderer sp;
@@ -41,6 +42,7 @@ public class CharacterContorller : MonoBehaviour
     public GameObject playerPrefab;
 
     public ParticleSystem dashParticle;
+    public ParticleSystem dustParticle;
 
     void Start()
     {
@@ -58,10 +60,6 @@ public class CharacterContorller : MonoBehaviour
             playerPrefab.layer = LayerMask.NameToLayer("Enemy");
         }
 
-        /*if (pView.IsMine)
-        {
-            OverheadHealthBarUI.SetActive(false);
-        }*/
         aimStick.SetActive(false);
     }
 
@@ -69,12 +67,13 @@ public class CharacterContorller : MonoBehaviour
     {
         if(pView.IsMine)
         {
-            Movement();
+            JumpMovement();
 
             DashBoost();
             
             RangedShoot();
-            
+
+            //attack animation trigger
             if (Input.GetMouseButtonDown(0))
             {       
                 anim.SetBool("isAttacking1",true);
@@ -86,38 +85,10 @@ public class CharacterContorller : MonoBehaviour
         }
     }
 
-    public void Movement()
+    public void JumpMovement()
     {
             yVelocity = rb.velocity.y;
             moveInput = Input.GetAxis("Horizontal");
-
-            /*if (Input.GetKey(KeyCode.A))
-            {
-                transform.Translate(Vector3.right * normalSpeed * Time.deltaTime);
-                //sp.flipX = true;
-                
-                
-        }
-            
-            if (Input.GetKeyUp(KeyCode.A))
-            {
-            
-                anim.SetBool("isRunning", false);
-            }
-            
-            
-            if (Input.GetKey(KeyCode.D))
-            {
-                transform.Translate(Vector3.right * normalSpeed * Time.deltaTime);
-                //sp.flipX = false;
-                anim.SetBool("isRunning", true);
-                
-            }
-
-            if (Input.GetKeyUp(KeyCode.D))
-            {
-                anim.SetBool("isRunning", false);
-            }*/
 
             //JUMP
             if (Input.GetKeyDown(KeyCode.Space) && GroundCheck.instanceGroundCheck.isGrounded == true)
@@ -125,6 +96,7 @@ public class CharacterContorller : MonoBehaviour
                 Jump();
             }
 
+            //DOUBLE JUMP
             if (Input.GetKeyDown(KeyCode.Space) && GroundCheck.instanceGroundCheck.isGrounded == false)
             {
                 if (extraJumps > 0)
@@ -141,50 +113,49 @@ public class CharacterContorller : MonoBehaviour
                 extraJumps = 2;
             }
 
-            //DOUBLE JUMP
-
-        /* if (Input.GetMouseButton(1))
-         {
-             AudioManager.instance.PlayAudio("SwordSwing");
-             anim.SetBool("isBlocking", true);
-         }
-
-         if (Input.GetMouseButtonUp(1))
-         {
-             anim.SetBool("isBlocking", false);
-         }*/
-
+        #region animtriggers
         if (yVelocity < 0)
-        {
-            anim.SetBool("isFalling", true);
-            rb.gravityScale = gravityScale * fallGravityMultiplier;
-        }
-        else if (yVelocity == 0)
-        {
-            anim.SetBool("isFalling", false);
-        }
-        if (yVelocity != 0)
-        {
-            anim.SetBool("isRunning", false);
-        }
-        if(yVelocity >0)
-        {
-            rb.gravityScale = gravityScale;
-        }
+            {
+                anim.SetBool("isFalling", true);
+                rb.gravityScale = gravityScale * fallGravityMultiplier;
+            }
+            else if (yVelocity == 0)
+            {
+                anim.SetBool("isFalling", false);
+            }
+            if (yVelocity != 0)
+            {
+                anim.SetBool("isRunning", false);
+            }
+        #endregion
+
+        //For Jumping calculations
+        if (yVelocity >0)
+            {
+                rb.gravityScale = gravityScale;
+            }
+    }
+
+    public void Jump()
+    {
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        GroundCheck.instanceGroundCheck.isGrounded = false;
+        anim.SetTrigger("isJumping");
+        playDust();
     }
 
     private void FixedUpdate()
     {
+        //Force Based Movement
+        float targetSpeed = moveInput * normalSpeed;
 
-            float targetSpeed = moveInput * normalSpeed;
+        float speedDif = targetSpeed - rb.velocity.x;
 
-            float speedDif = targetSpeed - rb.velocity.x;
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? accel : deccel;
 
-            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? accel : deccel;
+        float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPow) * Mathf.Sign(speedDif);
 
-            float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPow) * Mathf.Sign(speedDif);
-
-            rb.AddForce(movement * Vector2.right);
+        rb.AddForce(movement * Vector2.right);
 
         //Friction
         if(GroundCheck.instanceGroundCheck.lastGroundedTime>0 && Mathf.Abs(moveInput)<0.01f)
@@ -194,18 +165,21 @@ public class CharacterContorller : MonoBehaviour
             amount *= Mathf.Sign(rb.velocity.x);
             rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
         }
+
         if(moveInput < 0)
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
             TextPlayer.transform.eulerAngles = new Vector3(0, 0, 0);
             anim.SetBool("isRunning", true);
         }
+
         if (moveInput > 0)
         {
             transform.eulerAngles = new Vector3(0, 0, 0);
             TextPlayer.transform.eulerAngles = new Vector3(0, 0, 0);
             anim.SetBool("isRunning", true);
         }
+
         if(moveInput == 0)
         {
             anim.SetBool("isRunning", false);
@@ -239,7 +213,6 @@ public class CharacterContorller : MonoBehaviour
         {
             dashCoolCounter= 1;
         }
-
     }
     
     public void RangedShoot()
@@ -255,13 +228,14 @@ public class CharacterContorller : MonoBehaviour
         }
     }
     
-   
-
-    public void Jump()
+    public void playDash()
     {
-        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        GroundCheck.instanceGroundCheck.isGrounded = false;
-        anim.SetTrigger("isJumping");
+        dashParticle.Play();
+    }
+
+    public void playDust()
+    {
+        dustParticle.Play();
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -282,8 +256,51 @@ public class CharacterContorller : MonoBehaviour
         }
     }
 
-    public void playDash()
-    {
-        dashParticle.Play();
-    }
 }
+
+
+
+#region BackupCode
+
+//Backup Movement
+/*if (Input.GetKey(KeyCode.A))
+            {
+                transform.Translate(Vector3.right * normalSpeed * Time.deltaTime);
+                //sp.flipX = true;
+                
+                
+        }
+            
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+            
+                anim.SetBool("isRunning", false);
+            }
+            
+            
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.Translate(Vector3.right * normalSpeed * Time.deltaTime);
+                //sp.flipX = false;
+                anim.SetBool("isRunning", true);
+                
+            }
+
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                anim.SetBool("isRunning", false);
+            }*/
+
+//BLOCKING
+/* if (Input.GetMouseButton(1))
+         {
+             AudioManager.instance.PlayAudio("SwordSwing");
+             anim.SetBool("isBlocking", true);
+         }
+
+         if (Input.GetMouseButtonUp(1))
+         {
+             anim.SetBool("isBlocking", false);
+         }*/
+
+#endregion

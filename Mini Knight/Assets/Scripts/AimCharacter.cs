@@ -5,16 +5,20 @@ using UnityEngine;
 public class AimCharacter : MonoBehaviour
 {
     private Transform AimTransform;
+    public Transform barrel;
+
     Vector2 direction;
 
-    public Transform barrel;
     public GameObject bullet;
-    public float bulletSpeed = 50;
-    public string Bullets;
-    public int GunDurability = 3;
     public GameObject Aimm;
 
+    public float bulletSpeed = 50;
+    public int GunDurability = 3;
+
+    public string Bullets;
+
     private ObjectPooler objectpool;
+
     public static AimCharacter aim_instance;
 
     private void Start()

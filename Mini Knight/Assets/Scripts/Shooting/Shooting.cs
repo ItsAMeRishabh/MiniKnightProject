@@ -10,7 +10,6 @@ public class Shooting : MonoBehaviour
     public int BulletCount;
 
     public GameObject bullet;
-    //public GameObject Aimm;
 
     public Transform firePoint;
     public Animator anim;
