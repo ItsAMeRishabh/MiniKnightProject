@@ -5,10 +5,23 @@ using Photon.Pun;
 public class CharacterContorller : MonoBehaviour
 {
     public float walkSpeed = 2f;
-    public float sprintSpeed = 4f;
     public float normalSpeed;
     public float jumpForce = 2f;
     public int extraJumps = 2;
+
+    //Variables for Dashing
+    public float dashSpeed;
+    public float dashLength = 0.5f;
+    public float dashCooldown = 1f;
+    private float dashCounter;
+    public float dashCoolCounter;
+    public float moveInput;
+    [SerializeField] private float accel = 1;
+    [SerializeField] private float deccel = -1;
+    [SerializeField] private float velPow;
+    [SerializeField] private float frictionAmount;
+    [SerializeField] private float gravityScale;
+    [SerializeField] private float fallGravityMultiplier;
 
     [SerializeField] private float yVelocity;
 
@@ -21,10 +34,13 @@ public class CharacterContorller : MonoBehaviour
 
     public GameObject InGameUI;
     public GameObject OverheadText;
+    //public GameObject OverheadHealthBarUI;
     public GameObject TextPlayer;
     public GameObject groundSensor;
     public GameObject aimStick;
     public GameObject playerPrefab;
+
+    public ParticleSystem dashParticle;
 
     void Start()
     {
@@ -33,16 +49,20 @@ public class CharacterContorller : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         pView = GetComponent<PhotonView>();
-        
+
         if(!pView.IsMine)
         {
             InGameUI.SetActive(false);
             OverheadText.SetActive(false);
             groundSensor.SetActive(false);
-
             playerPrefab.layer = LayerMask.NameToLayer("Enemy");
         }
-            aimStick.SetActive(false);
+
+        /*if (pView.IsMine)
+        {
+            OverheadHealthBarUI.SetActive(false);
+        }*/
+        aimStick.SetActive(false);
     }
 
     void Update()
@@ -51,31 +71,32 @@ public class CharacterContorller : MonoBehaviour
         {
             Movement();
 
+            DashBoost();
+            
             RangedShoot();
             
             if (Input.GetMouseButtonDown(0))
             {       
-                anim.SetBool("isAttacking1", true);
-            }
+                anim.SetBool("isAttacking1",true);
+            }           
             else
             {
                 anim.SetBool("isAttacking1", false);
             }
         }
-
     }
 
     public void Movement()
     {
             yVelocity = rb.velocity.y;
+            moveInput = Input.GetAxis("Horizontal");
 
-            if (Input.GetKey(KeyCode.A))
+            /*if (Input.GetKey(KeyCode.A))
             {
                 transform.Translate(Vector3.right * normalSpeed * Time.deltaTime);
                 //sp.flipX = true;
-                anim.SetBool("isRunning", true);
-                transform.eulerAngles = new Vector3(0, 180, 0);
-                TextPlayer.transform.eulerAngles = new Vector3(0, 0, 0);
+                
+                
         }
             
             if (Input.GetKeyUp(KeyCode.A))
@@ -84,24 +105,35 @@ public class CharacterContorller : MonoBehaviour
                 anim.SetBool("isRunning", false);
             }
             
+            
             if (Input.GetKey(KeyCode.D))
             {
                 transform.Translate(Vector3.right * normalSpeed * Time.deltaTime);
                 //sp.flipX = false;
                 anim.SetBool("isRunning", true);
-                transform.eulerAngles = new Vector3(0,0, 0);
-                TextPlayer.transform.eulerAngles = new Vector3(0, 0, 0);
+                
             }
 
             if (Input.GetKeyUp(KeyCode.D))
             {
                 anim.SetBool("isRunning", false);
-            }
+            }*/
 
             //JUMP
             if (Input.GetKeyDown(KeyCode.Space) && GroundCheck.instanceGroundCheck.isGrounded == true)
             {
                 Jump();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && GroundCheck.instanceGroundCheck.isGrounded == false)
+            {
+                if (extraJumps > 0)
+                {
+                    rb.velocity = Vector2.zero;
+                    rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                    extraJumps--;
+                    anim.SetTrigger("isJumping");
+                }
             }
 
             if(GroundCheck.instanceGroundCheck.isGrounded == true)
@@ -110,45 +142,104 @@ public class CharacterContorller : MonoBehaviour
             }
 
             //DOUBLE JUMP
-            if (Input.GetKeyDown(KeyCode.Space) && GroundCheck.instanceGroundCheck.isGrounded == false)
-            {
-                if (extraJumps > 0)
-                {
-                    GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpForce;
-                    extraJumps--;
-                }
-            }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && GroundCheck.instanceGroundCheck.isGrounded == true)
-            {
-                normalSpeed = sprintSpeed;
-            }
+        /* if (Input.GetMouseButton(1))
+         {
+             AudioManager.instance.PlayAudio("SwordSwing");
+             anim.SetBool("isBlocking", true);
+         }
 
-            if (Input.GetKeyUp(KeyCode.LeftShift))
+         if (Input.GetMouseButtonUp(1))
+         {
+             anim.SetBool("isBlocking", false);
+         }*/
+
+        if (yVelocity < 0)
+        {
+            anim.SetBool("isFalling", true);
+            rb.gravityScale = gravityScale * fallGravityMultiplier;
+        }
+        else if (yVelocity == 0)
+        {
+            anim.SetBool("isFalling", false);
+        }
+        if (yVelocity != 0)
+        {
+            anim.SetBool("isRunning", false);
+        }
+        if(yVelocity >0)
+        {
+            rb.gravityScale = gravityScale;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+
+            float targetSpeed = moveInput * normalSpeed;
+
+            float speedDif = targetSpeed - rb.velocity.x;
+
+            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? accel : deccel;
+
+            float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPow) * Mathf.Sign(speedDif);
+
+            rb.AddForce(movement * Vector2.right);
+
+        //Friction
+        if(GroundCheck.instanceGroundCheck.lastGroundedTime>0 && Mathf.Abs(moveInput)<0.01f)
+        {
+            float amount = Mathf.Min(Mathf.Abs(rb.velocity.x),Mathf.Abs(frictionAmount));
+
+            amount *= Mathf.Sign(rb.velocity.x);
+            rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+        }
+        if(moveInput < 0)
+        {
+            transform.eulerAngles = new Vector3(0, 180, 0);
+            TextPlayer.transform.eulerAngles = new Vector3(0, 0, 0);
+            anim.SetBool("isRunning", true);
+        }
+        if (moveInput > 0)
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+            TextPlayer.transform.eulerAngles = new Vector3(0, 0, 0);
+            anim.SetBool("isRunning", true);
+        }
+        if(moveInput == 0)
+        {
+            anim.SetBool("isRunning", false);
+        }
+    }
+
+    public void DashBoost()
+    {
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            if(dashCoolCounter==1 && dashCounter<=0)
+            {
+                playDash();
+                normalSpeed = dashSpeed;
+                dashCounter = dashLength;
+                dashCoolCounter = 0;
+            }
+        }
+
+        if(dashCounter>0)
+        {
+            dashCounter -= Time.deltaTime;
+
+            if(dashCounter <= 0)
             {
                 normalSpeed = walkSpeed;
             }
+        }
 
-           /* if (Input.GetMouseButton(1))
-            {
-                AudioManager.instance.PlayAudio("SwordSwing");
-                anim.SetBool("isBlocking", true);
-            }
+        if(GroundCheck.instanceGroundCheck.isGrounded)
+        {
+            dashCoolCounter= 1;
+        }
 
-            if (Input.GetMouseButtonUp(1))
-            {
-                anim.SetBool("isBlocking", false);
-            }*/
-
-            if (yVelocity < 0)
-            {
-                anim.SetBool("canJump", false);
-                anim.SetBool("isFalling", true);
-            }
-            else if (yVelocity == 0)
-            {
-                anim.SetBool("isFalling", false);
-            }
     }
     
     public void RangedShoot()
@@ -168,9 +259,9 @@ public class CharacterContorller : MonoBehaviour
 
     public void Jump()
     {
-        GetComponent<Rigidbody2D>().velocity = Vector2.up * jumpForce;
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         GroundCheck.instanceGroundCheck.isGrounded = false;
-        anim.SetBool("canJump", true);
+        anim.SetTrigger("isJumping");
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
@@ -189,5 +280,10 @@ public class CharacterContorller : MonoBehaviour
             Spawn_Powerups.instance.HealthCount--;
             Destroy(other.gameObject);
         }
+    }
+
+    public void playDash()
+    {
+        dashParticle.Play();
     }
 }

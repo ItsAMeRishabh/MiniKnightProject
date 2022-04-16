@@ -10,6 +10,7 @@ public class GroundCheck : MonoBehaviour
     public PhotonView pview;
 
     public bool isGrounded;
+    public float lastGroundedTime;
     void Start()
     {
         instanceGroundCheck = this;
@@ -20,10 +21,12 @@ public class GroundCheck : MonoBehaviour
             if (collision.gameObject.tag == "Ground")
             {
                 isGrounded = true;
+                lastGroundedTime = 0;
             }
             else
             {
                 isGrounded = false;
+                lastGroundedTime -= Time.deltaTime;
             }
     }
 

@@ -46,7 +46,7 @@ public class Spawn_Powerups : MonoBehaviour
     IEnumerator HeartSpawn()
     {
         float spawnPoint= Random.Range(0,HealthSpawnPoint.Count);
-        PhotonNetwork.Instantiate("HealthPowerup",HealthSpawnPoint[(int)spawnPoint].position,Quaternion.identity);
+        Instantiate(Health, HealthSpawnPoint[(int)spawnPoint].position,Quaternion.identity);
         HealthCount++;
         yield return new WaitForSeconds(2.0f);
     }
