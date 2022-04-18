@@ -67,14 +67,14 @@ MonoBehaviour:
   jumpForce: 8
   extraJumps: 2
   dashSpeed: 25
-  dashLength: 0.25
+  dashLength: 0.2
   dashCooldown: 1
   dashCoolCounter: 0
   moveInput: 0
-  accel: 13
-  deccel: 20
+  accel: 18
+  deccel: 24
   velPow: 0.94
-  frictionAmount: 0.22
+  frictionAmount: 0.4
   gravityScale: 1.1
   fallGravityMultiplier: 1.8
   yVelocity: 0
