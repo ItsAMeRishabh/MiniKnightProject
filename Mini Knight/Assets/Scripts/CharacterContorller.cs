@@ -73,6 +73,8 @@ public class CharacterContorller : MonoBehaviour
             
             RangedShoot();
 
+            ChangeDir();
+
             //attack animation trigger
             if (Input.GetMouseButtonDown(0))
             {       
@@ -183,6 +185,18 @@ public class CharacterContorller : MonoBehaviour
         if(moveInput == 0)
         {
             anim.SetBool("isRunning", false);
+        }
+    }
+
+    private void ChangeDir()
+    {
+        if(moveInput > 0 && Input.GetKeyDown(KeyCode.A) && GroundCheck.instanceGroundCheck.isGrounded)
+        {
+            playDust();
+        }
+        if (moveInput < 0 && Input.GetKeyDown(KeyCode.D) && GroundCheck.instanceGroundCheck.isGrounded)
+        {
+            playDust();
         }
     }
 

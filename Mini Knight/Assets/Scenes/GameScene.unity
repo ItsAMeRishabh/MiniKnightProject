@@ -11798,6 +11798,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc902519de19f4e418abadacab4f1d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bounce: 16
 --- !u!61 &642409082
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -24823,6 +24824,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 699142124981537098, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 699142124981537098, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 736478579716118387, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
       propertyPath: accel
       value: 2
@@ -26688,7 +26697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Swordpowerups: {fileID: 3544726938140441041, guid: 1d501d77547834341842e0a8c9d91d07, type: 3}
-  Health: {fileID: 1785349043074353608, guid: ef495bfd17c023444bdfbf7a2fbfa261, type: 3}
+  Health: {fileID: 8517646557414604170, guid: 2ed4479ea54b30e4a948971c7a513566, type: 3}
   HealthSpawnPoint:
   - {fileID: 1167317000}
   - {fileID: 125710918}
