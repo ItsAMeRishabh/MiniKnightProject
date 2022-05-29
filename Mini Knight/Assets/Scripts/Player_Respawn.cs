@@ -9,7 +9,6 @@ public class Player_Respawn : MonoBehaviour
         respawnPoint = transform.position;
     }
 
-    
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.gameObject.tag == "FallDetector")
@@ -34,6 +33,7 @@ public class Player_Respawn : MonoBehaviour
 
         if (other.gameObject.tag == "Spikes")
         {
+            CharacterContorller.instanceController.anim.SetBool("TakeDamage",true);
             if (HealthBarScript.instance_health.currentHealth > 10)
             {
                 HealthBarScript.instance_health.currentHealth -= 10;
@@ -44,6 +44,10 @@ public class Player_Respawn : MonoBehaviour
                 HealthBarScript.instance_health.currentHearts -= 1;
                 HealthBarScript.instance_health.UpdateHearts();
             }
+        }
+        else
+        {
+            CharacterContorller.instanceController.anim.SetBool("TakeDamage",false);
         }
     }
 
