@@ -12,8 +12,14 @@ public class MeleeDamage : MonoBehaviour
     public PhotonView pview;
     private void Update()
     {
+        MeleeCal();
+    }
+
+    public void MeleeCal()
+    {
         if(Input.GetMouseButtonDown(0))
         {
+            
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleePoint.position, meleeRange, enemyMask);
 
             foreach (Collider2D enemy in hitEnemies)

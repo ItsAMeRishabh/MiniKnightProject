@@ -13286,6 +13286,10 @@ PrefabInstance:
       propertyPath: moveWithTransform
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8586387908119357500, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c21365dadb6303b438c5752413882cf0, type: 2}
     - target: {fileID: 8650609051682771119, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -5.391693

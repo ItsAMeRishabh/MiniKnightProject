@@ -19,6 +19,8 @@ public class HealthBarScript : MonoBehaviour
 
     public Vector3 offset;
 
+    public GameObject pickupHeart;
+
     private void Start() 
     {
         instance_health = this;
@@ -61,6 +63,18 @@ public class HealthBarScript : MonoBehaviour
                 Heart2.SetActive(false);
                 Heart3.SetActive(false);
                 break;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.name == "HeartPNG")
+        {
+            if (currentHearts < 3)
+            {
+                Destroy(collision.gameObject);
+                currentHearts++;
+            }
         }
     }
 }

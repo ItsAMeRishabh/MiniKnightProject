@@ -77,9 +77,11 @@ public class CharacterContorller : MonoBehaviour
 
             //attack animation trigger
             if (Input.GetMouseButtonDown(0))
-            {       
-                anim.SetBool("isAttacking1",true);
-            }           
+            {
+                anim.SetBool("isAttacking1", true);
+                //anim.SetBool("isRunning", false);
+                //anim.SetBool("isFalling", false);
+            }
             else
             {
                 anim.SetBool("isAttacking1", false);

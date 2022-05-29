@@ -328,6 +328,7 @@ MonoBehaviour:
   Heart2: {fileID: 1503538101608089459}
   Heart3: {fileID: 1235732398693228238}
   offset: {x: -0.05, y: 2.37, z: 0}
+  pickupHeart: {fileID: 8517646557414604170, guid: 2ed4479ea54b30e4a948971c7a513566, type: 3}
 --- !u!70 &2226780216004009845
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
