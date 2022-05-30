@@ -4,15 +4,20 @@ public class Player_Respawn : MonoBehaviour
 {
     Vector2 respawnPoint;
 
+    private float respawnCountdown;
+    public float respawnCooldown=5;
+
     void Start()
     {
         respawnPoint = transform.position;
+        respawnCountdown = respawnCooldown;
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.gameObject.tag == "FallDetector")
         {
+            //respawnCountdown = respawnCooldown;
             transform.position = respawnPoint;
             if (HealthBarScript.instance_health.currentHealth > 75)
             {
@@ -24,6 +29,8 @@ public class Player_Respawn : MonoBehaviour
                 HealthBarScript.instance_health.currentHearts -= 1;
                 HealthBarScript.instance_health.UpdateHearts();
             }
+
+            
         }
 
         else if(other.gameObject.tag == "Checkpoint")
@@ -51,4 +58,16 @@ public class Player_Respawn : MonoBehaviour
         }
     }
 
+    public void DeathTicker()
+    {
+        if (respawnCountdown <= 0)
+        {
+            CharacterContorller.instanceController.playerDisabled = false;
+        }
+        else
+        {
+            CharacterContorller.instanceController.playerDisabled = true;
+            respawnCountdown -= Time.deltaTime;
+        }
+    }
 }

@@ -66,6 +66,7 @@ MonoBehaviour:
   normalSpeed: 0
   jumpForce: 8
   extraJumps: 2
+  playerDisabled: 0
   dashSpeed: 25
   dashLength: 0.2
   dashCooldown: 1
@@ -290,6 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebfb6359c13b46145946506d1441d6d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawnCooldown: 5
 --- !u!114 &8135283995477389848
 MonoBehaviour:
   m_ObjectHideFlags: 0

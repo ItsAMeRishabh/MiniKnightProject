@@ -8,6 +8,7 @@ public class CharacterContorller : MonoBehaviour
     public float normalSpeed;
     public float jumpForce = 2f;
     public int extraJumps = 2;
+    public bool playerDisabled;
 
     //Variables for Dashing
     public float dashSpeed;
@@ -58,6 +59,7 @@ public class CharacterContorller : MonoBehaviour
             OverheadText.SetActive(false);
             groundSensor.SetActive(false);
             playerPrefab.layer = LayerMask.NameToLayer("Enemy");
+            playerDisabled = false;
         }
 
         aimStick.SetActive(false);
@@ -67,24 +69,27 @@ public class CharacterContorller : MonoBehaviour
     {
         if(pView.IsMine)
         {
-            JumpMovement();
-
-            DashBoost();
-            
-            RangedShoot();
-
-            ChangeDir();
-
-            //attack animation trigger
-            if (Input.GetMouseButtonDown(0))
+            if (!playerDisabled)
             {
-                anim.SetBool("isAttacking1", true);
-                //anim.SetBool("isRunning", false);
-                //anim.SetBool("isFalling", false);
-            }
-            else
-            {
-                anim.SetBool("isAttacking1", false);
+                JumpMovement();
+
+                DashBoost();
+
+                RangedShoot();
+
+                ChangeDir();
+
+                //attack animation trigger
+                if (Input.GetMouseButtonDown(0))
+                {
+                    anim.SetBool("isAttacking1", true);
+                    //anim.SetBool("isRunning", false);
+                    //anim.SetBool("isFalling", false);
+                }
+                else
+                {
+                    anim.SetBool("isAttacking1", false);
+                }
             }
         }
     }
@@ -150,43 +155,46 @@ public class CharacterContorller : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Force Based Movement
-        float targetSpeed = moveInput * normalSpeed;
-
-        float speedDif = targetSpeed - rb.velocity.x;
-
-        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? accel : deccel;
-
-        float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPow) * Mathf.Sign(speedDif);
-
-        rb.AddForce(movement * Vector2.right);
-
-        //Friction
-        if(GroundCheck.instanceGroundCheck.lastGroundedTime>0 && Mathf.Abs(moveInput)<0.01f)
+        if (!playerDisabled)
         {
-            float amount = Mathf.Min(Mathf.Abs(rb.velocity.x),Mathf.Abs(frictionAmount));
+            //Force Based Movement
+            float targetSpeed = moveInput * normalSpeed;
 
-            amount *= Mathf.Sign(rb.velocity.x);
-            rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
-        }
+            float speedDif = targetSpeed - rb.velocity.x;
 
-        if(moveInput < 0)
-        {
-            transform.eulerAngles = new Vector3(0, 180, 0);
-            TextPlayer.transform.eulerAngles = new Vector3(0, 0, 0);
-            anim.SetBool("isRunning", true);
-        }
+            float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? accel : deccel;
 
-        if (moveInput > 0)
-        {
-            transform.eulerAngles = new Vector3(0, 0, 0);
-            TextPlayer.transform.eulerAngles = new Vector3(0, 0, 0);
-            anim.SetBool("isRunning", true);
-        }
+            float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPow) * Mathf.Sign(speedDif);
 
-        if(moveInput == 0)
-        {
-            anim.SetBool("isRunning", false);
+            rb.AddForce(movement * Vector2.right);
+
+            //Friction
+            if (GroundCheck.instanceGroundCheck.lastGroundedTime > 0 && Mathf.Abs(moveInput) < 0.01f)
+            {
+                float amount = Mathf.Min(Mathf.Abs(rb.velocity.x), Mathf.Abs(frictionAmount));
+
+                amount *= Mathf.Sign(rb.velocity.x);
+                rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+            }
+
+            if (moveInput < 0)
+            {
+                transform.eulerAngles = new Vector3(0, 180, 0);
+                TextPlayer.transform.eulerAngles = new Vector3(0, 0, 0);
+                anim.SetBool("isRunning", true);
+            }
+
+            if (moveInput > 0)
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                TextPlayer.transform.eulerAngles = new Vector3(0, 0, 0);
+                anim.SetBool("isRunning", true);
+            }
+
+            if (moveInput == 0)
+            {
+                anim.SetBool("isRunning", false);
+            }
         }
     }
 
