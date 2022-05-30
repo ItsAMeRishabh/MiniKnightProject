@@ -13298,6 +13298,22 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8866912296535258916, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866912296535258916, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866912296535258916, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866912296535258916, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2040912247437404067, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
     - {fileID: 3623708710799126101, guid: 7a58df9fe20659144ad19cf5675989ef, type: 3}
