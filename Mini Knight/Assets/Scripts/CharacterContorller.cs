@@ -17,6 +17,9 @@ public class CharacterContorller : MonoBehaviour
     private float dashCounter;
     public float dashCoolCounter;
 
+    public Material whiteMat;
+    public Material matDefault;
+
     //For Force Based Movement
     public float moveInput;
     [SerializeField] private float accel;
@@ -52,6 +55,8 @@ public class CharacterContorller : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         pView = GetComponent<PhotonView>();
+        sp = GetComponent<SpriteRenderer>();
+        matDefault = sp.material;
 
         if(!pView.IsMine)
         {
@@ -90,6 +95,10 @@ public class CharacterContorller : MonoBehaviour
                 {
                     anim.SetBool("isAttacking1", false);
                 }
+            }
+            else
+            {
+                rb.velocity = Vector3.zero;
             }
         }
     }
@@ -278,8 +287,32 @@ public class CharacterContorller : MonoBehaviour
             Spawn_Powerups.instance.HealthCount--;
             Destroy(other.gameObject);
         }
-    }
 
+        if (other.gameObject.tag == "Spikes")
+        {
+            //CharacterContorller.instanceController.anim.SetBool("TakeDamage", true);
+            if (HealthBarScript.instance_health.currentHealth > 10)
+            {
+                sp.material = whiteMat;
+                Invoke("MatReset", 0.25f);
+                HealthBarScript.instance_health.currentHealth -= 10;
+            }
+            else if (HealthBarScript.instance_health.currentHealth <= 10)
+            {
+                HealthBarScript.instance_health.currentHealth = 100;
+                HealthBarScript.instance_health.currentHearts -= 1;
+                HealthBarScript.instance_health.UpdateHearts();
+            }
+        }
+        //else
+        //{
+        //    CharacterContorller.instanceController.anim.SetBool("TakeDamage", false);
+        //}
+    }
+    void MatReset()
+    {
+        sp.material = matDefault;
+    }
 }
 
 

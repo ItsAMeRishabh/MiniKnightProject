@@ -71,6 +71,8 @@ MonoBehaviour:
   dashLength: 0.2
   dashCooldown: 1
   dashCoolCounter: 0
+  whiteMat: {fileID: 2100000, guid: 4a5352ac53d6ca54f9062647ef801100, type: 2}
+  matDefault: {fileID: 0}
   moveInput: 0
   accel: 18
   deccel: 24

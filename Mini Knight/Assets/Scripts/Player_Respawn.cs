@@ -5,19 +5,23 @@ public class Player_Respawn : MonoBehaviour
     Vector2 respawnPoint;
 
     private float respawnCountdown;
-    public float respawnCooldown=5;
+    public float respawnCooldown;
+
+    private bool isDead;
 
     void Start()
     {
         respawnPoint = transform.position;
+        respawnCooldown = 3f;
         respawnCountdown = respawnCooldown;
+        isDead = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.gameObject.tag == "FallDetector")
         {
-            //respawnCountdown = respawnCooldown;
+            isDead = true;
             transform.position = respawnPoint;
             if (HealthBarScript.instance_health.currentHealth > 75)
             {
@@ -29,7 +33,6 @@ public class Player_Respawn : MonoBehaviour
                 HealthBarScript.instance_health.currentHearts -= 1;
                 HealthBarScript.instance_health.UpdateHearts();
             }
-
             
         }
 
@@ -38,36 +41,51 @@ public class Player_Respawn : MonoBehaviour
             respawnPoint = other.transform.position;
         }
 
-        if (other.gameObject.tag == "Spikes")
+        
+    }
+
+    private void Update()
+    {
+        DeathTicker();
+        if(isDead)
         {
-            CharacterContorller.instanceController.anim.SetBool("TakeDamage",true);
-            if (HealthBarScript.instance_health.currentHealth > 10)
-            {
-                HealthBarScript.instance_health.currentHealth -= 10;
-            }
-            else if (HealthBarScript.instance_health.currentHealth <= 10)
-            {
-                HealthBarScript.instance_health.currentHealth = 100;
-                HealthBarScript.instance_health.currentHearts -= 1;
-                HealthBarScript.instance_health.UpdateHearts();
-            }
+            Invoke("SetMaterial", 0.2f);
+            Invoke("ResetMaterial", 0.4f);
         }
-        else
-        {
-            CharacterContorller.instanceController.anim.SetBool("TakeDamage",false);
-        }
+
     }
 
     public void DeathTicker()
     {
-        if (respawnCountdown <= 0)
+        if(isDead)
         {
-            CharacterContorller.instanceController.playerDisabled = false;
+            if(respawnCountdown <=0)
+            {
+
+                isDead = false;
+                respawnCountdown = respawnCooldown;
+                CharacterContorller.instanceController.playerDisabled = false;
+
+                //CharacterContorller.instanceController.sp.material = CharacterContorller.instanceController.matDefault;
+                ResetMaterial();
+            }
+            else
+            {
+                //CharacterContorller.instanceController.sp.material = CharacterContorller.instanceController.whiteMat;
+                
+                CharacterContorller.instanceController.playerDisabled = true;
+                respawnCountdown -= Time.deltaTime;
+
+            }
         }
-        else
-        {
-            CharacterContorller.instanceController.playerDisabled = true;
-            respawnCountdown -= Time.deltaTime;
-        }
+        
+    }
+    void SetMaterial()
+    {
+        CharacterContorller.instanceController.sp.material = CharacterContorller.instanceController.whiteMat;
+    }
+    void ResetMaterial()
+    {
+        CharacterContorller.instanceController.sp.material = CharacterContorller.instanceController.matDefault;
     }
 }
